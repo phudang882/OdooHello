@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Define the action for displaying the documents -->
+     <record id="document_tree" model="ir.ui.view">
+        <field name="name">document.manager.tree</field>
+        <field name="model">document.manager</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title"/>
+                <field name="link"/>
+                <field name="time"/>
+                <field name="owner"/>
+                <field name="state"/>
+                <field name="description"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Define the form view -->
+    <record id="document_form" model="ir.ui.view">
+        <field name="name">document.manager.form</field>
+        <field name="model">document.manager</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="link"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="group_id" />
+                        </group>
+                        
+                    </group>
+                     <notebook>
+                        <page name="description" string="Description">
+                            <group>
+                                <field name="description"/>
+                                <field name="note"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+            
+        </field>
+    </record>
+
+
+    <record id="document_action" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">document.manager</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first document!
+            </p>
+        </field>
+    </record>
+
+    <!-- Define the menu for documents -->
+    <menuitem id="document_root" 
+            name="Constructions" 
+            sequence="9"/>
+
+    <menuitem id="document_manager_root"
+                name="Documents"
+                parent="document_root"
+                sequence="9"/>
+
+    <!-- Define a submenu and link it to the action -->
+    <menuitem id="document_manager" 
+            name="Manage Documents" 
+            parent="document_manager_root" 
+            action="document_action" 
+            sequence="9"/>
+</odoo>
